@@ -18,9 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-__version__ = '0.1.0'
+import os
+import sys
 
-from mcu_interface.bossa import Bossa
-from mcu_interface.bossa import BossaInfo
-from mcu_interface.dfu import Dfu
-from mcu_interface.dfu import DfuInfo
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))

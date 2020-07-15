@@ -21,7 +21,7 @@
 ## Imports
 
 import functools
-import logger
+import logging
 import time
 
 # Logging

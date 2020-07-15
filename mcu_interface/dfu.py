@@ -28,6 +28,8 @@ import textwrap
 
 import pyudev
 
+from mcu_interface.common import timeit
+
 # Logging
 logger = logging.getLogger(__name__)
 
