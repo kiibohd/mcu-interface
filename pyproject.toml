@@ -3,7 +3,7 @@ requires = ["flit"]
 build-backend = "flit.buildapi"
 
 [tool.flit.metadata]
-module = "mcu-interface"
+module = "mcu_interface"
 author = "Jacob Alexander"
 author-email = "haata@kiibohd.com"
 home-page = "http://kiibohd.com"
@@ -15,7 +15,7 @@ classifiers = [
 description-file = "README.md"
 requires = [
     "pyudev>=0.22.0",
-    "hidiocore>=0.1.0b3",
+#    "hidiocore>=0.1.0b3",
 ]
 requires-python = ">=3.7"
 

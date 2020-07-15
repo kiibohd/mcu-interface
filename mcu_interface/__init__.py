@@ -1,3 +1,10 @@
+'''
+mcu_interface handles basic communication with MCUs
+Typically used when flashing MCUs through a bootloader (such as SAM-BA or DFU).
+
+This library is maintained by Input Club for some of their keyboards.
+'''
+
 # Copyright (C) 2020 Jacob Alexander
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
