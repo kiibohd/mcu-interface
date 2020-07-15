@@ -1,0 +1,6 @@
+Cython==0.29.21
+hidiocore @ file:///home/hyatt/Sync/Source/hid-io/hid-io-core/python
+pycapnp==1.0.0b2
+pygtail==0.11.1
+pyudev==0.22.0
+six==1.15.0
