@@ -114,22 +114,39 @@ class DfuInfo:
 
         @param raw_serial: iSerial string taken from dfu-util or udev
         '''
-        raw_serial_split = raw_serial.split(' - ')
+        # Spaces are used to separate most of the fields
+        # Example serials:
+        # 5335310050464D4B3530343232333033 - sam4s4b:04E3 | 697E97E3A186C5DF - nRF52810:0015
+        # 5335310050464D4B3530343232333033 - sam4s4b:04E3
+        # 5335310050464D4B3530343232333033 - sam4s4b
+        raw_serial_split = raw_serial.split(' ')
+
+        # Check if bootloader has firmware revision (sam4s4b:FFFF vs sam4s4b)
+        chip_rev = raw_serial_split[2].split(':')
+        chip = raw_serial_split[2]
+        mcu_revision = None
+        if len(chip_rev) > 1:
+            chip = chip_rev[0]
+            mcu_revision = int(chip_rev[1], 16) # Hex value
+
+        # Check if ble fields are present
+        ble_serial = None
+        ble_chip = None
+        ble_revision = None
+        if len(raw_serial_split) > 5:
+            ble_serial = raw_serial_split[4]
+            ble_chip_rev = raw_serial_split[6].split(':')
+            ble_chip = ble_chip_rev[0]
+            ble_revision = int(ble_chip_rev[1], 16)
 
         rdict = {
             'serial': raw_serial_split[0], # Isolate main serial number
-            'chip': len(raw_serial_split) > 1 and raw_serial_split[1] or None,
-            'ble_serial': None,
-            'ble_chip': None,
-            'ble_version': None,
-            'ble_softdevice': None,
-            'ble_softdevice_version': None,
+            'chip': chip,
+            'mcu_revision': mcu_revision,
+            'ble_serial': ble_serial,
+            'ble_chip': ble_chip,
+            'ble_revision': ble_revision
         }
-
-        # Check if there's BLE information in the serial line
-        if len(raw_serial_split) > 2 and 'ble' in raw_serial:
-            # TODO
-            raise NotImplementedError('ADD BLE PARSING')
 
         return rdict
 
@@ -196,6 +213,13 @@ class Dfu:
 
         # Store identified DFU interfaces
         self.interfaces = filtered_interfaces
+
+    def dfu_interfaces(self):
+        '''
+        Returns a list of located interfaces based on the filter parameters of the object
+        If duplicate interfaces are returned, these correspond to AltSettings available in DFU
+        '''
+        return self.interfaces
 
     @classmethod
     def from_udev(cls, vid=None, pid=None, serial=None, ble_serial=None):
