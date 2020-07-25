@@ -25,7 +25,7 @@ This library is maintained by Input Club for some of their keyboards.
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 
 from mcu_interface.bossa import Bossa
 from mcu_interface.bossa import BossaInfo
